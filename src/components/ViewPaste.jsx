@@ -1,45 +1,49 @@
-import React, { useEffect } from "react"; // Import React library (optional in latest React versions but still common)
-import { useState } from "react"; // Import useState hook for managing component state
-import { useParams, useSearchParams } from "react-router-dom"; // Import hook to read & manipulate URL query parameters
-import { addToPaste, updateToPaste } from "../redux/PasteSlice"; // Import Redux action creators
-import { useDispatch, useSelector } from "react-redux"; // Import hook to dispatch Redux actions
-import { toast } from "react-hot-toast";
+import React from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const ViewPaste = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
+  const allPastes = useSelector((state) => state.paste.pastes);
+  const paste = allPastes.find((p) => p._id === id);
 
-  const allpastes = useSelector((state) => state.paste.pastes);
-
-  const paste = allpastes.find((p) => p._id === id);
-
-  console.log("Final result", paste);
+  if (!paste) {
+    return <p className="text-center mt-10 text-red-500">Paste not found</p>;
+  }
 
   return (
-    <div>
-      {/* Container with flex layout to place input and button side by side */}
-      <div className="flex flex-row gap-7 place-content-between">
-        {/* Title input box */}
-        <input
-          disabled
-          className="p-1 rounded-2xl mt-2 w-[66%] pl-4" // Styling: padding, rounded corners, margin-top, width, padding-left
-          type="text" // Input type text
-          value={paste.title} // Controlled input bound to 'title' state
-          onChange={(e) => setTitle(e.target.value)} // Update title state on input change
-          placeholder="Enter title here" // Placeholder text
-        />
-      </div>
+    <div className="max-w-3xl mx-auto p-4 sm:p-6">
+      {/* Back Button */}
+      <button
+        onClick={() => navigate("/pastes")}
+        className="mb-4 px-4 py-2 rounded-lg bg-sky-800 text-white hover:bg-sky-900 transition"
+        title="Go back to pastes"
+      >
+        ← Go Back
+      </button>
 
-      {/* Textarea for paste content */}
-      <div>
-        <textarea
-          disabled
-          className="border-2 rounded-2xl mt-4 min-w-[500px] p-4" // Styling: border, rounded corners, margin-top, min width, padding
-          value={paste.content} // Controlled textarea bound to 'value' state
-          onChange={(e) => setValue(e.target.value)} // Update content state on textarea change
-          placeholder="Enter content here" // Placeholder text
-          rows={20} // Number of visible text lines
-        />
-      </div>
+      {/* Title */}
+      <input
+        disabled
+        className="p-2 rounded-2xl w-full pl-4 text-lg sm:text-xl font-semibold 
+                   border border-gray-300 dark:border-gray-600 bg-gray-100 dark:bg-gray-800
+                   text-gray-900 dark:text-gray-100"
+        type="text"
+        value={paste.title}
+        placeholder="No title"
+      />
+
+      {/* Content */}
+      <textarea
+        disabled
+        className="border border-gray-300 dark:border-gray-600 rounded-2xl mt-4 p-4 w-full
+                   min-h-[200px] sm:min-h-[300px] text-gray-900 dark:text-gray-100
+                   bg-gray-100 dark:bg-gray-800 resize-y"
+        value={paste.content}
+        placeholder="No content"
+        rows={12}
+      />
     </div>
   );
 };

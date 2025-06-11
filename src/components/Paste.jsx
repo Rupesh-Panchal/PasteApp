@@ -3,14 +3,27 @@ import { useSelector, useDispatch } from "react-redux";
 import { removeFromPaste } from "../redux/PasteSlice";
 import { toast } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
-import { FaEdit, FaEye, FaTrash, FaCopy, FaShareAlt } from "react-icons/fa";
+import {
+  FaEdit,
+  FaEye,
+  FaEyeSlash,
+  FaTrash,
+  FaCopy,
+  FaShareAlt,
+} from "react-icons/fa";
 import { MdCancel } from "react-icons/md";
+import { FaWhatsapp } from "react-icons/fa";
+import { BiLogoGmail } from "react-icons/bi";
 
 const Paste = () => {
   const pastes = useSelector((state) => state.paste.pastes);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const [searchTerm, setSearchTerm] = useState("");
+  const [shareLink, setShareLink] = useState("");
+  const [showShareBox, setShowShareBox] = useState(false);
+  const [expandedPasteId, setExpandedPasteId] = useState(null);
 
   const filteredData = pastes.filter((paste) =>
     paste.title.toLowerCase().includes(searchTerm.toLowerCase())
@@ -18,6 +31,7 @@ const Paste = () => {
 
   const handleDelete = (pasteId) => {
     dispatch(removeFromPaste({ _id: pasteId }));
+    toast.success("Paste deleted");
   };
 
   const handleCopy = (pasteId) => {
@@ -27,12 +41,6 @@ const Paste = () => {
       toast.success("Copied to clipboard");
     }
   };
-
-  const navigate = useNavigate();
-
-  const [shareLink, setShareLink] = useState("");
-
-  const [showShareBox, setShowShareBox] = useState(false);
 
   const handleShare = (pasteId) => {
     const url = `${window.location.origin}/pastes/${pasteId}`;
@@ -45,141 +53,188 @@ const Paste = () => {
     toast.success("Link copied successfully");
   };
 
-  const [expandedPasteId, setExpandedPasteId] = useState(null);
-
-  // Function to toggle content display
   const toggleContent = (id) => {
-    if (expandedPasteId === id) {
-      setExpandedPasteId(null); // collapse if clicked again
-    } else {
-      setExpandedPasteId(id);
-    }
+    setExpandedPasteId(expandedPasteId === id ? null : id);
   };
 
   return (
-    <div>
+    <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 mt-8">
+      {/* Search Input */}
       <input
-        className="p-2 rounded-2xl mt-5 min-w-[600px]"
         type="search"
         placeholder="Search pastes..."
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
+        className="w-full max-w-lg p-3 rounded-full border border-gray-600 bg-gray-200 text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 mb-8"
       />
 
+      {/* Share Box Modal */}
+      {/* Share Box Modal */}
       {showShareBox && (
-        <div className=" fixed inset-0 flex justify-center items-center z-50 pointer-events-none">
-          <div className="bg-gray-950 bg-opacity-90 text-white rounded-xl p-6 w-80 shadow-lg relative pointer-events-auto">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-opacity-70">
+          <div className="rounded-xl bg-gray-700 p-6 w-80 shadow-lg relative text-white">
             <button
-              className="absolute bg-gray-900 top-2 right-3 text-gray-400 hover:text-white text-xl font-bold"
               onClick={() => setShowShareBox(false)}
+              className="absolute top-2 right-3 text-gray-400 hover:text-white text-2xl"
+              aria-label="Close Share Box"
             >
               <MdCancel />
             </button>
 
-            <h2 className="text-lg font-semibold mb-4">Share this paste</h2>
+            <h2 className="text-xl font-semibold mb-4">Share the paste</h2>
 
             <input
+              type="text"
               readOnly
-              className="w-full bg-gray-900 border border-gray-600 rounded p-2 mb-4 focus:outline-none focus:ring-2 focus:ring-blue-500 text-white"
               value={shareLink}
+              className="w-full bg-gray-800 border border-gray-700 rounded px-3 py-2 mb-4 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
 
-            <div className="flex justify-end">
+            <div className="flex flex-col space-y-3">
               <button
                 onClick={copyShareLink}
-                className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition"
+                className="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded transition"
               >
                 Copy Link
               </button>
+              <div className="flex items-center gap-4 justify-center mt-4">
+                <a
+                  href={`https://api.whatsapp.com/send?text=${encodeURIComponent(
+                    shareLink
+                  )}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:bg-green-700 px-4 py-2 rounded transition"
+                >
+                  <FaWhatsapp className="text-green-500 text-3xl" />
+                </a>
+
+                <a
+                  href={`mailto:?subject=Check this paste&body=${encodeURIComponent(
+                    shareLink
+                  )}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:bg-red-600 px-4 py-2 rounded transition"
+                >
+                  <BiLogoGmail className="text-red-500 text-3xl" />
+                </a>
+              </div>
             </div>
           </div>
         </div>
       )}
 
-      <div className="mt-4 space-y-6">
+      {/* Paste List */}
+      <div className="space-y-8">
         {filteredData.length > 0 ? (
           filteredData.map((paste) => (
             <div
               key={paste._id}
-              className="relative border border-gray-600 rounded-lg p-6 min-w-[600px] text-white"
-              style={{
-                width: "600px", // fixed width
-                height: "200px", // fixed height
-                overflow: "hidden", // hide overflow content (or use 'auto' for scroll)
-              }}
+              className="bg-gray-200 dark:bg-gray-800 rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300 p-6 cursor-pointer"
+              style={{ minHeight: "150px" }}
+              onClick={() => toggleContent(paste._id)}
             >
-              {/* Title and Content aligned left */}
-              <div className="pr-90 pt-5 mb-4">
-                {/* pr-120 = padding-right to avoid content behind buttons */}
-                <h2 className="text-2xl font-semibold mb-2">{paste.title}</h2>
+              {/* Title */}
+              <div className="text-left">
+                <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-3">
+                  {paste.title}
+                </h1>
+
+                {/* Content (toggle) */}
 
                 {expandedPasteId === paste._id ? (
-                  <p className="text-gray-300 text-xl whitespace-pre-wrap pt-2 pr-6">
+                  <p className="text-3xl text-gray-800 dark:text-gray-300 whitespace-pre-wrap mb-4 max-h-48 overflow-auto">
                     {paste.content}
                   </p>
-                ) : null}
+                ) : (
+                  <p className="text-3xl text-gray-600 dark:text-gray-400 line-clamp-3 mb-4">
+                    {paste.content}
+                  </p>
+                )}
               </div>
 
-              {/* Buttons at bottom right */}
-              <div className="absolute bottom-3 right-3 flex gap-2">
+              {/* Created Date */}
+              <div className="text-right">
+                <p className="text-sm text-gray-500 dark:text-gray-400 mb-4 select-none">
+                  Created on:{" "}
+                  {new Date(paste.createAt).toLocaleDateString("en-US", {
+                    year: "numeric",
+                    month: "short",
+                    day: "numeric",
+                  })}
+                </p>
+              </div>
+
+              {/* Action Buttons */}
+              <div className="flex flex-wrap gap-5 justify-end text-gray-600 dark:text-gray-400">
                 <button
-                  onClick={() => navigate(`/?pasteId=${paste._id}`)}
-                  className="text-white hover:text-gray-400"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    navigate(`/?pasteId=${paste._id}`);
+                  }}
                   title="Edit Paste"
-                  aria-label="Edit"
+                  aria-label="Edit Paste"
+                  className="hover:text-blue-600 dark:hover:text-blue-400 transition"
                 >
-                  <FaEdit size={18} />
+                  <FaEdit size={22} />
                 </button>
-                <button
-                  onClick={() => navigate(`/pastes/${paste._id}`)}
-                  className="text-white hover:text-gray-400"
-                  title="View Paste"
-                  aria-label="View"
-                >
-                  {expandedPasteId === paste._id ? (
-                    <FaEyeSlash size={18} />
-                  ) : (
-                    <FaEye size={18} />
-                  )}
-                </button>
-                <button
-                  onClick={() => handleDelete(paste._id)}
-                  className="text-white hover:text-gray-400"
-                  title="Delete Paste"
-                  aria-label="Delete"
-                >
-                  <FaTrash size={18} />
-                </button>
-                <button
-                  onClick={() => handleCopy(paste._id)}
-                  className="text-white hover:text-gray-400"
-                  title="Copy Paste"
-                  aria-label="Copy"
-                >
-                  <FaCopy size={18} />
-                </button>
-                <button
-                  onClick={() => handleShare(paste._id)}
-                  className="text-white hover:text-gray-400"
-                  title="Share Paste"
-                  aria-label="Share"
-                >
-                  <FaShareAlt size={18} />
-                </button>
-              </div>
 
-              {/* Created at date below content */}
-              <div className="pr-50 pt-13 pt-1 mt-6 text-sm text-gray">
-                {new Date(paste.createAt).toLocaleDateString("en-us", {
-                  year: "numeric",
-                  month: "short",
-                  day: "numeric",
-                })}
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    navigate(`/pastes/${paste._id}`);
+                  }}
+                  title="View Paste"
+                  aria-label="View Paste"
+                  className="hover:text-blue-600 dark:hover:text-blue-400 transition p-1 sm:p-2"
+                >
+                  <FaEye className="sm:hidden" size={14} />
+                  <FaEye className="hidden sm:inline" size={20} />
+                </button>
+
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleDelete(paste._id);
+                  }}
+                  title="Delete Paste"
+                  aria-label="Delete Paste"
+                  className="hover:text-red-600 dark:hover:text-red-400 transition "
+                >
+                  <FaTrash size={22} />
+                </button>
+
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleCopy(paste._id);
+                  }}
+                  title="Copy Paste Content"
+                  aria-label="Copy Paste Content"
+                  className="hover:text-blue-600 dark:hover:text-blue-400 transition"
+                >
+                  <FaCopy size={22} />
+                </button>
+
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleShare(paste._id);
+                  }}
+                  title="Share Paste"
+                  aria-label="Share Paste"
+                  className="hover:text-blue-600 dark:hover:text-blue-400 transition"
+                >
+                  <FaShareAlt size={22} />
+                </button>
               </div>
             </div>
           ))
         ) : (
-          <p className="text-gray-400">No pastes found.</p>
+          <p className="text-center text-gray-500 dark:text-gray-400 text-lg mt-10">
+            No pastes found.
+          </p>
         )}
       </div>
     </div>

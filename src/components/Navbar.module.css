@@ -1,0 +1,14 @@
+/* Navbar.module.css */
+
+.navbarContainer {
+  width: 100%;
+  background-color: #ffffff;
+}
+
+@media (max-width: 640px) {
+  .navLinkGroup {
+    flex-direction: column;
+    gap: 0.75rem;
+    padding: 1rem;
+  }
+}
