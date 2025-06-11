@@ -131,7 +131,7 @@ const Paste = () => {
           filteredData.map((paste) => (
             <div
               key={paste._id}
-              className="bg-gray-200 dark:bg-gray-800 rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300 p-6 cursor-pointer"
+              className="bg-gray-200 dark:bg-gray-800 rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300 p-6 cursor-pointer mx-auto w-full max-w-md"
               style={{ minHeight: "150px" }}
               onClick={() => toggleContent(paste._id)}
             >
