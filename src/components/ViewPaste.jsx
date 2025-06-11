@@ -13,7 +13,7 @@ const ViewPaste = () => {
   }
 
   return (
-    <div className="max-w-3xl mx-auto p-4 sm:p-6">
+    <div className="w-full sm:max-w-3xl mx-auto p-4 sm:p-6">
       {/* Back Button */}
       <button
         onClick={() => navigate("/pastes")}
