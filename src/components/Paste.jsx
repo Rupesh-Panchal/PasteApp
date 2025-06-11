@@ -6,13 +6,12 @@ import { useNavigate } from "react-router-dom";
 import {
   FaEdit,
   FaEye,
-  FaEyeSlash,
   FaTrash,
   FaCopy,
   FaShareAlt,
+  FaWhatsapp,
 } from "react-icons/fa";
 import { MdCancel } from "react-icons/md";
-import { FaWhatsapp } from "react-icons/fa";
 import { BiLogoGmail } from "react-icons/bi";
 
 const Paste = () => {
@@ -58,21 +57,20 @@ const Paste = () => {
   };
 
   return (
-    <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 mt-8">
+    <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 mt-8 bg-blue-50 dark:bg-gray-900 rounded-lg py-6">
       {/* Search Input */}
       <input
         type="search"
         placeholder="Search pastes..."
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
-        className="w-full max-w-lg p-3 rounded-full border border-gray-600 bg-gray-200 text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 mb-8"
+        className="w-full max-w-lg p-3 rounded-full border border-gray-600 bg-white text-gray-900 focus:outline-none focus:ring-2 focus:ring-purple-500 mb-8"
       />
 
       {/* Share Box Modal */}
-      {/* Share Box Modal */}
       {showShareBox && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-opacity-70">
-          <div className="rounded-xl bg-gray-700 p-6 w-80 shadow-lg relative text-white">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60">
+          <div className="rounded-xl bg-purple-800 p-6 w-80 shadow-lg relative text-white">
             <button
               onClick={() => setShowShareBox(false)}
               className="absolute top-2 right-3 text-gray-400 hover:text-white text-2xl"
@@ -87,16 +85,17 @@ const Paste = () => {
               type="text"
               readOnly
               value={shareLink}
-              className="w-full bg-gray-800 border border-gray-700 rounded px-3 py-2 mb-4 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full bg-purple-900 border border-purple-700 rounded px-3 py-2 mb-4 text-sm focus:outline-none focus:ring-2 focus:ring-purple-500"
             />
 
             <div className="flex flex-col space-y-3">
               <button
                 onClick={copyShareLink}
-                className="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded transition"
+                className="bg-purple-600 hover:bg-purple-700 px-4 py-2 rounded transition text-yellow-100 font-semibold"
               >
                 Copy Link
               </button>
+
               <div className="flex items-center gap-4 justify-center mt-4">
                 <a
                   href={`https://api.whatsapp.com/send?text=${encodeURIComponent(
@@ -105,8 +104,9 @@ const Paste = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="hover:bg-green-700 px-4 py-2 rounded transition"
+                  aria-label="Share on WhatsApp"
                 >
-                  <FaWhatsapp className="text-green-500 text-3xl" />
+                  <FaWhatsapp className="text-green-400 text-3xl" />
                 </a>
 
                 <a
@@ -115,9 +115,10 @@ const Paste = () => {
                   )}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="hover:bg-red-600 px-4 py-2 rounded transition"
+                  className="hover:bg-red-700 px-4 py-2 rounded transition"
+                  aria-label="Share via Email"
                 >
-                  <BiLogoGmail className="text-red-500 text-3xl" />
+                  <BiLogoGmail className="text-red-400 text-3xl" />
                 </a>
               </div>
             </div>
@@ -131,7 +132,7 @@ const Paste = () => {
           filteredData.map((paste) => (
             <div
               key={paste._id}
-              className="bg-gray-200 dark:bg-gray-800 rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300 p-6 cursor-pointer mx-auto w-full max-w-md"
+              className="bg-white dark:bg-gray-800 rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300 p-6 cursor-pointer mx-auto w-full max-w-md"
               style={{ minHeight: "150px" }}
               onClick={() => toggleContent(paste._id)}
             >
@@ -142,13 +143,12 @@ const Paste = () => {
                 </h2>
 
                 {/* Content (toggle) */}
-
                 {expandedPasteId === paste._id ? (
-                  <p className="text-2xl text-gray-800 dark:text-gray-300 whitespace-pre-wrap mb-4 max-h-48 overflow-auto">
+                  <p className="text-lg text-gray-800 dark:text-gray-300 whitespace-pre-wrap mb-4 max-h-48 overflow-auto">
                     {paste.content}
                   </p>
                 ) : (
-                  <p className="text-2xl text-gray-600 dark:text-gray-400 line-clamp-3 mb-4">
+                  <p className="text-lg text-gray-600 dark:text-gray-400 line-clamp-3 mb-4">
                     {paste.content}
                   </p>
                 )}
@@ -175,7 +175,7 @@ const Paste = () => {
                   }}
                   title="Edit Paste"
                   aria-label="Edit Paste"
-                  className="hover:text-blue-600 dark:hover:text-blue-400 transition"
+                  className="hover:text-purple-600 dark:hover:text-purple-400 transition"
                 >
                   <FaEdit size={22} />
                 </button>
@@ -187,7 +187,7 @@ const Paste = () => {
                   }}
                   title="View Paste"
                   aria-label="View Paste"
-                  className="hover:text-blue-600 dark:hover:text-blue-400 transition p-1 sm:p-2"
+                  className="hover:text-purple-600 dark:hover:text-purple-400 transition p-1 sm:p-2"
                 >
                   <FaEye className="sm:hidden" size={14} />
                   <FaEye className="hidden sm:inline" size={20} />
@@ -212,7 +212,7 @@ const Paste = () => {
                   }}
                   title="Copy Paste Content"
                   aria-label="Copy Paste Content"
-                  className="hover:text-blue-600 dark:hover:text-blue-400 transition"
+                  className="hover:text-purple-600 dark:hover:text-purple-400 transition"
                 >
                   <FaCopy size={22} />
                 </button>
@@ -224,7 +224,7 @@ const Paste = () => {
                   }}
                   title="Share Paste"
                   aria-label="Share Paste"
-                  className="hover:text-blue-600 dark:hover:text-blue-400 transition"
+                  className="hover:text-purple-600 dark:hover:text-purple-400 transition"
                 >
                   <FaShareAlt size={22} />
                 </button>
