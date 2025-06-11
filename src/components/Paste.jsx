@@ -57,13 +57,13 @@ const Paste = () => {
   };
 
   return (
-    <div className="max-w-4xl  mx-auto mt-9 px-4 sm:px-6 lg:px-8 pt-0">
+    <div className="max-w-4xl mx-auto mt-9 px-4 sm:px-6 lg:px-8 pt-0">
       <input
         type="search"
         placeholder="Search pastes..."
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
-        className="w-full max-w-lg p-3 rounded-full border border-gray-600 bg-white text-gray-900 focus:outline-none focus:ring-2 focus:ring-purple-500 mb-8 mt-1"
+        className="w-full max-w-lg p-3 mt-9 rounded-full border border-gray-600 bg-white text-gray-900 focus:outline-none focus:ring-2 focus:ring-purple-500 mb-8 mt-1"
       />
 
       {/* Share Box Modal */}
