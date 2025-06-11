@@ -48,8 +48,8 @@ const Home = () => {
   };
 
   return (
-    <div className="bg-gray-300 dark:bg-gray-900 py-8 px-4 sm:px-8">
-      <div className="w-full max-w-2xl mx-auto bg-white dark:bg-gray-900 shadow-2xl rounded-3xl p-6 sm:p-10 border border-gray-200 dark:border-gray-700">
+    <div className="min-h-[calc(100vh-64px)] flex items-center justify-center bg-gray-300 dark:bg-gray-900 px-4 sm:px-8 py-8">
+      <div className="w-full max-w-2xl bg-white dark:bg-gray-900 shadow-2xl rounded-3xl p-6 sm:p-10 border border-gray-200 dark:border-gray-700">
         <h2 className="text-2xl sm:text-4xl font-bold text-center text-gray-800 dark:text-white mb-6">
           {pasteId ? "Edit Your Paste" : "Create a New Paste"}
         </h2>
