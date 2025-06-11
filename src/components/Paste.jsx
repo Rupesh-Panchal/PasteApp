@@ -68,8 +68,8 @@ const Paste = () => {
 
       {/* Share Box Modal */}
       {showShareBox && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60">
-          <div className="rounded-xl bg-purple-800 p-6 w-80 shadow-lg relative text-white">
+        <div className="fixed inset-0 z-50 flex items-center justify-center  bg-opacity-60">
+          <div className="rounded-xl bg-gray-900 p-6 w-80 shadow-lg relative text-white">
             <button
               onClick={() => setShowShareBox(false)}
               className="absolute top-2 right-3 text-gray-400 hover:text-white text-2xl"
@@ -84,7 +84,7 @@ const Paste = () => {
               type="text"
               readOnly
               value={shareLink}
-              className="w-full bg-purple-900 border border-purple-700 rounded px-3 py-2 mb-4 text-sm focus:outline-none focus:ring-2 focus:ring-purple-500"
+              className="w-full bg-gray-1000 border border-purple-700 rounded px-3 py-2 mb-4 text-sm focus:outline-none focus:ring-2 focus:ring-purple-500"
             />
 
             <div className="flex flex-col space-y-3">
