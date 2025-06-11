@@ -48,7 +48,7 @@ const Home = () => {
   };
 
   return (
-    <div className="min-h-screen py-4 pt-15 flex items-start justify-center px-2 sm:px-4">
+    <div className="min-h-screen py-4 mt-6 pt-15 flex items-start justify-center px-2 sm:px-4">
       <div className="w-full max-w-4xl bg-white dark:bg-gray-900 shadow-2xl rounded-3xl p-8 sm:p-14 border border-gray-200 dark:border-gray-700">
         <h2 className="text-3xl sm:text-5xl font-bold text-center mb-10">
           {pasteId ? "Edit Your Paste" : "Create a New Paste"}
