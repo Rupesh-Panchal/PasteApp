@@ -48,15 +48,15 @@ const Home = () => {
   };
 
   return (
-    <div className="min-h-[calc(100vh-64px)] flex items-center justify-center bg-gray-300 dark:bg-gray-900 px-4 sm:px-8 py-8">
-      <div className="w-full max-w-2xl bg-white dark:bg-gray-900 shadow-2xl rounded-3xl p-6 sm:p-10 border border-gray-200 dark:border-gray-700">
-        <h2 className="text-2xl sm:text-4xl font-bold text-center text-gray-800 dark:text-white mb-6">
+    <div className="min-h-screen py-4 pt-15 flex items-start justify-center px-2 sm:px-4">
+      <div className="w-full max-w-4xl bg-white dark:bg-gray-900 shadow-2xl rounded-3xl p-8 sm:p-14 border border-gray-200 dark:border-gray-700">
+        <h2 className="text-3xl sm:text-5xl font-bold text-center mb-10">
           {pasteId ? "Edit Your Paste" : "Create a New Paste"}
         </h2>
 
-        <div className="flex flex-col gap-4 sm:gap-6">
+        <div className="flex flex-col gap-6 sm:gap-8">
           <input
-            className="p-4 rounded-xl border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-800 text-gray-800 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
+            className="p-5 text-lg rounded-xl border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-black dark:text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
             type="text"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
@@ -64,7 +64,7 @@ const Home = () => {
           />
 
           <textarea
-            className="p-4 rounded-xl border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-800 text-gray-800 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 h-60 sm:h-72 resize-none focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
+            className="p-5 text-lg rounded-xl border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-black dark:text-white placeholder-gray-500 h-72 sm:h-96 resize-none focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
             value={value}
             onChange={(e) => setValue(e.target.value)}
             placeholder="Enter your content..."
@@ -72,7 +72,7 @@ const Home = () => {
 
           <button
             onClick={createPaste}
-            className="bg-purple-600 hover:bg-purple-700 text-yellow-100 font-semibold py-3 px-6 rounded-xl transition text-lg shadow-md hover:shadow-lg"
+            className="bg-purple-600 hover:bg-purple-700 text-white font-semibold py-4 px-8 rounded-xl transition text-xl shadow-md hover:shadow-lg"
           >
             {pasteId ? "Update Paste" : "Create Paste"}
           </button>
