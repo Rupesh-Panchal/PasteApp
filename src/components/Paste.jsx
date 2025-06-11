@@ -63,7 +63,7 @@ const Paste = () => {
         placeholder="Search pastes..."
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
-        className="w-full max-w-lg p-3 mt-9 rounded-full border border-gray-600 bg-white text-gray-900 focus:outline-none focus:ring-2 focus:ring-purple-500 mb-8 mt-1"
+        className="w-full max-w-lg p-3 mt-1 rounded-full border border-gray-600 bg-white text-gray-900 focus:outline-none focus:ring-2 focus:ring-purple-500 mb-8 mt-1"
       />
 
       {/* Share Box Modal */}

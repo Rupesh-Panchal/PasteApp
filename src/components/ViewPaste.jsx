@@ -35,7 +35,7 @@ const ViewPaste = () => {
       {/* Content */}
       <textarea
         disabled
-        className="border h-150 border-gray-300 dark:border-gray-600 rounded-2xl mt-4 p-4 w-full
+        className="border h-130 border-gray-300 dark:border-gray-600 rounded-2xl mt-4 p-4 w-full
                    min-h-[200px] sm:min-h-[300px] text-gray-900 dark:text-gray-100
                    bg-gray-100 dark:bg-gray-800 resize-y"
         value={paste.content}
