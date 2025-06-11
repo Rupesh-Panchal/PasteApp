@@ -16,7 +16,7 @@ const ViewPaste = () => {
     <div className="w-full sm:max-w-4xl h-{-24} mx-auto p-0 sm:p-1">
       <button
         onClick={() => navigate("/pastes")}
-        className=" px-4 py-2 mt-20 rounded-lg bg-sky-800 text-white hover:bg-sky-900 transition"
+        className=" px-4 py-2 mt-1 rounded-lg bg-sky-800 text-white hover:bg-sky-900 transition"
         title="Go back to pastes"
       >
         ← Go Back
