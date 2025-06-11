@@ -137,18 +137,18 @@ const Paste = () => {
             >
               {/* Title */}
               <div className="text-left">
-                <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-3">
+                <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-3">
                   {paste.title}
-                </h1>
+                </h2>
 
                 {/* Content (toggle) */}
 
                 {expandedPasteId === paste._id ? (
-                  <p className="text-3xl text-gray-800 dark:text-gray-300 whitespace-pre-wrap mb-4 max-h-48 overflow-auto">
+                  <p className="text-2xl text-gray-800 dark:text-gray-300 whitespace-pre-wrap mb-4 max-h-48 overflow-auto">
                     {paste.content}
                   </p>
                 ) : (
-                  <p className="text-3xl text-gray-600 dark:text-gray-400 line-clamp-3 mb-4">
+                  <p className="text-2xl text-gray-600 dark:text-gray-400 line-clamp-3 mb-4">
                     {paste.content}
                   </p>
                 )}
