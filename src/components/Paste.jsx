@@ -56,12 +56,6 @@ const Paste = () => {
     setExpandedPasteId(expandedPasteId === id ? null : id);
   };
 
-  const location = useLocation();
-  const queryParams = new URLSearchParams(location.search);
-  const editingPasteId = queryParams.get("pasteId");
-
-  const editingPaste = pastes.find((p) => p._id === editingPasteId);
-
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-28">
       <input
