@@ -57,7 +57,7 @@ const Paste = () => {
   };
 
   return (
-    <div className="max-w-4xl mx-auto mt-9 px-4 sm:px-6 lg:px-8 pt-0">
+    <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-28">
       <input
         type="search"
         placeholder="Search pastes..."
